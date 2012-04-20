@@ -53,6 +53,7 @@ class LanguagePack::Ruby < LanguagePack::Base
       create_database_yml
       install_binaries
       run_assets_precompile_rake_task
+      build_static_site
     end
   end
 
@@ -450,6 +451,13 @@ params = CGI.parse(uri.query || "")
     if rake_task_defined?("assets:precompile")
       topic "Running: rake assets:precompile"
       pipe("env PATH=$PATH:bin bundle exec rake assets:precompile 2>&1")
+    end
+  end
+
+  def build_static_site
+    if rake_task_defined?("build_dev")
+      topic "Running: rake assets:precompile"
+      pipe("env PATH=$PATH:bin bundle exec rake build_dev")
     end
   end
 end
