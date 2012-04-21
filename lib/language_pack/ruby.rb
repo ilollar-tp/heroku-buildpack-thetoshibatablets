@@ -458,6 +458,7 @@ params = CGI.parse(uri.query || "")
     topic "TESTING ENV #{ENV['RACK_ENV']}"
 
     pipe("env PATH=$PATH:bin node -v")
+    pipe("env PATH=$PATH:bin node r.js -o baseUrl=tmp/#{$scripts}/ name=#{$config['requirejs']['name']} out=#{$build}/#{$scripts}/#{$config['requirejs']['out']}.js")
 
     #if ENV['RACK_ENV'] == 'staging'
     #  if rake_task_defined?("build_dev")
