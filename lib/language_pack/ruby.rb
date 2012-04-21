@@ -456,6 +456,7 @@ params = CGI.parse(uri.query || "")
 
   def build_static_site
     if rake_task_defined?("build_dev")
+      topic "TESTING ENV #{ENV['RACK_ENV']}"
       topic "Running: rake build_dev"
       pipe("env PATH=$PATH:bin bundle exec rake build_dev")
     end
