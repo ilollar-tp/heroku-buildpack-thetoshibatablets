@@ -455,10 +455,18 @@ params = CGI.parse(uri.query || "")
   end
 
   def build_static_site
-    if rake_task_defined?("build_dev")
-      topic "TESTING ENV #{ENV['RACK_ENV']}"
-      topic "Running: rake build_dev"
-      pipe("env PATH=$PATH:bin bundle exec rake build_dev")
+    topic "TESTING ENV #{ENV['RACK_ENV']}"
+
+    if ENV['RACK_ENV'] == 'staging'
+      if rake_task_defined?("build_dev")
+        topic "Running: rake build_dev"
+        pipe("env PATH=$PATH:bin bundle exec rake build_dev")
+      end
+    elsif ENV['RACK_ENV'] == 'production'
+      if rake_task_defined?("build")
+        topic "Running: rake build"
+        pipe("env PATH=$PATH:bin bundle exec rake build")
+      end
     end
   end
 end
