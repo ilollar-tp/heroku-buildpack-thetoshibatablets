@@ -458,7 +458,8 @@ params = CGI.parse(uri.query || "")
     topic "TESTING ENV #{ENV['RACK_ENV']}"
 
     pipe("env PATH=$PATH:bin node -v")
-    pipe("env PATH=$PATH:bin node r.js")
+    pipe("env PATH=$PATH:bin bundle exec rake build")
+    pipe("env PATH=$PATH:bin node r.js -o baseUrl=tmp/scripts/ name=main out=public/scripts/main.js paths.Modernizr=libs/modernizr/require-modernizr paths.jQuery=libs/jquery/require-jquery paths.Underscore=libs/underscore/require-underscore paths.Backbone=libs/backbone/require-backbone paths.Mustache=libs/mustache/require-mustache paths.TweenLite=libs/greensock/require-tweenlite paths.templates=../templates")
 
     #if ENV['RACK_ENV'] == 'staging'
     #  if rake_task_defined?("build_dev")
