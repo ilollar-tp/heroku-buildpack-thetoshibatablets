@@ -457,7 +457,7 @@ params = CGI.parse(uri.query || "")
   def build_static_site
     topic "TESTING ENV #{ENV['RACK_ENV']}"
 
-    pipe("env PATH=$PATH:bin npm install")
+    pipe("env PATH=$PATH:bin node -v")
 
     #if ENV['RACK_ENV'] == 'staging'
     #  if rake_task_defined?("build_dev")
