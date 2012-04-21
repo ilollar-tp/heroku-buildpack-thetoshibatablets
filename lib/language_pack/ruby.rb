@@ -455,22 +455,17 @@ params = CGI.parse(uri.query || "")
   end
 
   def build_static_site
-    topic "TESTING ENV #{ENV['RACK_ENV']}"
-
-    pipe("env PATH=$PATH:bin node -v")
-    pipe("env PATH=$PATH:bin bundle exec rake build")
-    pipe("env PATH=$PATH:bin node r.js -o baseUrl=tmp/scripts/ name=main out=public/scripts/main.js paths.Modernizr=libs/modernizr/require-modernizr paths.jQuery=libs/jquery/require-jquery paths.Underscore=libs/underscore/require-underscore paths.Backbone=libs/backbone/require-backbone paths.Mustache=libs/mustache/require-mustache paths.TweenLite=libs/greensock/require-tweenlite paths.templates=../templates")
-
-    #if ENV['RACK_ENV'] == 'staging'
-    #  if rake_task_defined?("build_dev")
-    #    topic "Running: rake build_dev"
-    #    pipe("env PATH=$PATH:bin bundle exec rake build_dev")
-    #  end
-    #elsif ENV['RACK_ENV'] == 'production'
-    #  if rake_task_defined?("build")
-    #    topic "Running: rake build"
-    #    pipe("env PATH=$PATH:bin bundle exec rake build")
-    #  end
-    #end
+    if ENV['RACK_ENV'] == 'staging'
+      if rake_task_defined?("build_dev")
+        topic "Running: rake build_dev"
+        pipe("env PATH=$PATH:bin bundle exec rake build_dev")
+      end
+    elsif ENV['RACK_ENV'] == 'production'
+      if rake_task_defined?("build")
+        topic "Running: rake build"
+        pipe("env PATH=$PATH:bin bundle exec rake build")
+        pipe("env PATH=$PATH:bin node r.js -o baseUrl=tmp/scripts/ name=main out=public/scripts/main.js paths.Modernizr=libs/modernizr/require-modernizr paths.jQuery=libs/jquery/require-jquery paths.Underscore=libs/underscore/require-underscore paths.Backbone=libs/backbone/require-backbone paths.Mustache=libs/mustache/require-mustache paths.TweenLite=libs/greensock/require-tweenlite paths.templates=../templates")
+      end
+    end
   end
 end
