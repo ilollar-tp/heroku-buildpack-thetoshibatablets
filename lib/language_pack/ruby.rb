@@ -456,6 +456,7 @@ params = CGI.parse(uri.query || "")
 
   def build_static_site
     config = YAML.load(File.read('config.yml'))
+    topic "RACK_ENV from ENV: #{ENV['RACK_ENV']}"
     topic "RACK_ENV from config.yml: #{config['environment']}"
     if ENV['RACK_ENV'] == 'staging'
       if rake_task_defined?("build_dev")
