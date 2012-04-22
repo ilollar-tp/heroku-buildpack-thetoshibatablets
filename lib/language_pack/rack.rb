@@ -16,7 +16,7 @@ class LanguagePack::Rack < LanguagePack::Ruby
 
   def default_config_vars
     super.merge({
-      "RACK_ENV" => "production"
+      "RACK_ENV" => "staging"
     })
   end
 
