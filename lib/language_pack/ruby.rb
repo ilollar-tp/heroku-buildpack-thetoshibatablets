@@ -456,18 +456,15 @@ params = CGI.parse(uri.query || "")
 
   def build_static_site
     config = YAML.load(File.read('config.yml'))
-    topic "RACK_ENV from ENV: #{ENV['RACK_ENV']}"
-    topic "RACK_ENV from config.yml: #{config['environment']}"
-    if config['environment'] == 'staging'
+    if config['environment'] == 'test'
       if rake_task_defined?("build_dev")
         topic "Running: rake build_dev"
         pipe("env PATH=$PATH:bin bundle exec rake build_dev")
       end
-    elsif config['environment'] == 'production'
+    else
       if rake_task_defined?("build")
         topic "Running: rake build"
         pipe("env PATH=$PATH:bin bundle exec rake build")
-        #pipe("env PATH=$PATH:bin node r.js -o baseUrl=tmp/scripts/ name=main out=public/scripts/main.js paths.Modernizr=libs/modernizr/require-modernizr paths.jQuery=libs/jquery/require-jquery paths.Underscore=libs/underscore/require-underscore paths.Backbone=libs/backbone/require-backbone paths.Mustache=libs/mustache/require-mustache paths.TweenLite=libs/greensock/require-tweenlite paths.templates=../templates")
       end
     end
   end
