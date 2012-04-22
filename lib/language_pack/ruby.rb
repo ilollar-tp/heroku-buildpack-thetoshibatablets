@@ -467,7 +467,7 @@ params = CGI.parse(uri.query || "")
       if rake_task_defined?("build")
         topic "Running: rake build"
         pipe("env PATH=$PATH:bin bundle exec rake build")
-        pipe("env PATH=$PATH:bin node r.js -o baseUrl=tmp/scripts/ name=main out=public/scripts/main.js paths.Modernizr=libs/modernizr/require-modernizr paths.jQuery=libs/jquery/require-jquery paths.Underscore=libs/underscore/require-underscore paths.Backbone=libs/backbone/require-backbone paths.Mustache=libs/mustache/require-mustache paths.TweenLite=libs/greensock/require-tweenlite paths.templates=../templates")
+        #pipe("env PATH=$PATH:bin node r.js -o baseUrl=tmp/scripts/ name=main out=public/scripts/main.js paths.Modernizr=libs/modernizr/require-modernizr paths.jQuery=libs/jquery/require-jquery paths.Underscore=libs/underscore/require-underscore paths.Backbone=libs/backbone/require-backbone paths.Mustache=libs/mustache/require-mustache paths.TweenLite=libs/greensock/require-tweenlite paths.templates=../templates")
       end
     end
   end
