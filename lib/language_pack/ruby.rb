@@ -456,7 +456,6 @@ params = CGI.parse(uri.query || "")
 
   def build_static_site
     topic "RACK_ENV: #{ENV['RACK_ENV']}"
-    topic "RAILS_ENV: #{ENV['RAILS_ENV']}"
     if ENV['RACK_ENV'] == 'staging'
       if rake_task_defined?("build_dev")
         topic "Running: rake build_dev"
