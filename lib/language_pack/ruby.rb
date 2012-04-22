@@ -458,12 +458,12 @@ params = CGI.parse(uri.query || "")
     config = YAML.load(File.read('config.yml'))
     topic "RACK_ENV from ENV: #{ENV['RACK_ENV']}"
     topic "RACK_ENV from config.yml: #{config['environment']}"
-    if ENV['RACK_ENV'] == 'staging'
+    if config['environment'] == 'staging'
       if rake_task_defined?("build_dev")
         topic "Running: rake build_dev"
         pipe("env PATH=$PATH:bin bundle exec rake build_dev")
       end
-    elsif ENV['RACK_ENV'] == 'production'
+    elsif config['environment'] == 'production'
       if rake_task_defined?("build")
         topic "Running: rake build"
         pipe("env PATH=$PATH:bin bundle exec rake build")
