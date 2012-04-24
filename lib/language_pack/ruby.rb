@@ -455,9 +455,8 @@ params = CGI.parse(uri.query || "")
   end
 
   def build_static_site
-    config = YAML.load(File.read('config.yml'))
     topic "RACK_ENV: #{ENV['RACK_ENV']}"
-    if config['environment'] == 'test'
+    if ENV['RACK_ENV'] == 'test'
       if rake_task_defined?("build_dev")
         topic "Running: rake build_dev"
         pipe("env PATH=$PATH:bin bundle exec rake build_dev")
